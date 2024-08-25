@@ -158,7 +158,7 @@ namespace Ryujinx.Memory
             }
             else
             {
-                byte[] fileName = "/dev/shm/Ryujinx-XXXXXX"u8.ToArray();
+                byte[] fileName = "/data/data/com.termux/files/usr/tmp/shm/Ryujinx-XXXXXX"u8.ToArray();
 
                 fixed (byte* pFileName = fileName)
                 {
