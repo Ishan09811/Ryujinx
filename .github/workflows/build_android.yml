@@ -39,6 +39,11 @@ jobs:
         run: |
           echo "org.ryujinx.llvm.toolchain.path=${ANDROID_HOME}/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin" >> src/RyujinxAndroid/gradle.properties
 
+      - name: Download and extract libjnidispatch.so
+        run: |
+          wget https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.15.0/jna-5.15.0.jar
+          unzip -j jna-5.15.0.jar com/sun/jna/linux-aarch64/libjnidispatch.so -d src/RyujinxAndroid/app/src/main/jniLibs/arm64-v8a/
+
       # Step 6: Build the Android project
       - name: Build the Android project
         run: |
