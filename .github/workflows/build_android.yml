@@ -14,9 +14,6 @@ jobs:
       # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          submodules: true  # This fetches and initializes submodules
-          fetch-depth: 0    # This fetches all history, necessary for submodules
 
       # Step 2: Set up JDK 17
       - name: Set up JDK 17
@@ -41,6 +38,24 @@ jobs:
       - name: Configure Android Build
         run: |
           echo "org.ryujinx.llvm.toolchain.path=${ANDROID_HOME}/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin" >> src/RyujinxAndroid/gradle.properties
+
+      - name: Build OpenAL for Android
+        run: |
+          git clone https://github.com/kcat/openal-soft.git
+          cd openal-soft
+          mkdir build-android
+          cd build-android
+          cmake .. \
+            -DCMAKE_TOOLCHAIN_FILE=${ANDROID_HOME}/ndk/25.1.8937393/build/cmake/android.toolchain.cmake \
+            -DANDROID_ABI=arm64-v8a \
+            -DANDROID_PLATFORM=android-34 \
+            -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc)
+
+      - name: Copy libopenal.so to jniLibs
+        run: |
+          cd ../..
+          cp build-android/libopenal.so src/RyujinxAndroid/app/src/main/jniLibs/arm64-v8a/
 
       - name: Download and extract libjnidispatch.so
         run: |
