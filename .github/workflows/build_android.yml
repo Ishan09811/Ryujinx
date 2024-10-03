@@ -14,6 +14,9 @@ jobs:
       # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          submodules: true  # This fetches and initializes submodules
+          fetch-depth: 0    # This fetches all history, necessary for submodules
 
       # Step 2: Set up JDK 17
       - name: Set up JDK 17
