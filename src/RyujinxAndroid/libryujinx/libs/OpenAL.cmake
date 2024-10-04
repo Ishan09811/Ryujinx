@@ -9,7 +9,7 @@ set(PROJECT_ENV "ANDROID_NDK_ROOT=${CMAKE_ANDROID_NDK}")
 
 if (CMAKE_HOST_WIN32)
     # Handle Windows specific setup
-    ...
+    # Your Windows-specific code here...
 elseif (CMAKE_HOST_UNIX)
     find_program(MAKE_COMMAND NAMES make REQUIRED)
     list(APPEND PROJECT_ENV "PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}")
@@ -25,7 +25,7 @@ ExternalProject_Add(
     GIT_TAG                     ${OPENAL_VERSION}
     LIST_SEPARATOR              "|"
     CONFIGURE_COMMAND           ${CMAKE_COMMAND} -E env ${PROJECT_ENV}
-                                    cmake -B${CMAKE_BINARY_DIR}/openal-build -H<SOURCE_DIR>
+                                    cmake -B${CMAKE_BINARY_DIR}/openal-build -H${SOURCE_DIR}
                                     -DCMAKE_SYSTEM_NAME=Android
                                     -DCMAKE_ANDROID_ARCH_ABI=${CMAKE_ANDROID_ARCH}
                                     -DCMAKE_ANDROID_NDK=${CMAKE_ANDROID_NDK}
