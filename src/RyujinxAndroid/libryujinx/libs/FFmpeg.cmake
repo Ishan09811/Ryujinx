@@ -9,7 +9,6 @@ set(PROJECT_ENV "ANDROID_NDK_ROOT=${CMAKE_ANDROID_NDK}")
 
 if (CMAKE_HOST_WIN32)
     # Handle Windows specific setup
-    ...
 elseif (CMAKE_HOST_UNIX)
     find_program(MAKE_COMMAND NAMES make REQUIRED)
     list(APPEND PROJECT_ENV "PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}")
