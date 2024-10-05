@@ -52,8 +52,9 @@ jobs:
           ./gradlew --stacktrace assembleDebug
         continue-on-error: true  # This will allow the workflow to continue even if this step fails
 
-      - name: List cpp Build Directory
-        run: ls -l ./src/RyujinxAndroid/app/src/main/cpp
+      - name: Find and List FFmpeg Build Directory
+        run: |
+            find . -type d -name "ffmpeg-build" -exec ls -l {} \;
 
       # Step 7: Upload APK artifact
       - name: Upload APK Artifact
