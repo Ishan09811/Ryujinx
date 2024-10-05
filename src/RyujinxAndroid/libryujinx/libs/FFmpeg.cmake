@@ -26,15 +26,15 @@ ExternalProject_Add(
     CONFIGURE_COMMAND           ${CMAKE_COMMAND} -E env ${PROJECT_ENV}
                                     ./configure
                                     --target-os=android
-                                    --arch=arm64-v8a  # Changed here
+                                    --arch=arm64-v8a
                                     --enable-shared
                                     --disable-static
                                     --prefix=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
                                     --disable-doc
                                     --disable-programs
                                     --enable-cross-compile
-                                    --cross-prefix=${ANDROID_TOOLCHAIN_ROOT}/bin/${CMAKE_ANDROID_TOOLCHAIN_PREFIX}- 
+                                    --cross-prefix=${ANDROID_TOOLCHAIN_ROOT}/bin/${CMAKE_ANDROID_TOOLCHAIN_PREFIX}-
                                     --sysroot=${CMAKE_ANDROID_SYSROOT}
-    BUILD_COMMAND               ${CMAKE_COMMAND} -E env ${PROJECT_ENV} make -j$(nproc)  # Changed here
+    BUILD_COMMAND               ${CMAKE_COMMAND} -E env ${PROJECT_ENV} make -j$$(nproc)  # Changed here
     INSTALL_COMMAND             ${CMAKE_COMMAND} -E env ${PROJECT_ENV} make install
 )
