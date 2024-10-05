@@ -92,7 +92,7 @@ add_custom_command(
     OUTPUT ${FFmpeg_BUILD_DIR}/Makefile
     COMMAND ${CMAKE_COMMAND} -E echo "Configuring FFmpeg"
     COMMAND git clone ${FFmpeg_GIT_REPOSITORY} ${FFmpeg_BUILD_DIR}
-    COMMAND cd ${FFmpeg_BUILD_DIR} && ./configure --disable-avdevice --disable-avformat --disable-doc --disable-everything --enable-decoder=h264 --enable-decoder=vp8 --enable-decoder=vp9 --cc=${CMAKE_C_COMPILER} --cxx=${CMAKE_CXX_COMPILER} ${FFmpeg_CROSS_COMPILE_FLAGS}
+    COMMAND cd ${FFmpeg_BUILD_DIR} && ./configure --disable-static --disable-avdevice --disable-avformat --disable-doc --disable-everything --enable-shared --enable-decoder=h264 --enable-decoder=vp8 --enable-decoder=vp9 --cc=${CMAKE_C_COMPILER} --cxx=${CMAKE_CXX_COMPILER} ${FFmpeg_CROSS_COMPILE_FLAGS}
     WORKING_DIRECTORY ${FFmpeg_BUILD_DIR}
 )
 
@@ -107,8 +107,6 @@ add_custom_command(
 # Link FFmpeg libraries to your target
 target_link_libraries(ryujinxjni
                       ${FFmpeg_BUILD_DIR}/libavcodec.so
-                      ${FFmpeg_BUILD_DIR}/libavformat.so
                       ${FFmpeg_BUILD_DIR}/libavutil.so
                       ${FFmpeg_BUILD_DIR}/libswscale.so
-                      ${FFmpeg_BUILD_DIR}/libswresample.so
-                      ${FFmpeg_BUILD_DIR}/libavfilter.so)
+                      ${FFmpeg_BUILD_DIR}/libswresample.so)
